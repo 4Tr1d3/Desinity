@@ -1,0 +1,600 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --background: #10100f;
+  --sidebar: #24211e;
+  --foreground: #f2efec;
+  --muted: #a39b95;
+  --orange: #ff6938;
+  --line: #34302c;
+  --font: "Manrope", Arial, sans-serif;
+}
+
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font);
+}
+
+/* ЛЕВАЯ ПАНЕЛЬ */
+
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 10;
+  width: 340px;
+  min-height: 100vh;
+  background: var(--sidebar);
+}
+
+.logo {
+  display: inline-block;
+  margin: 48px 0 0 65px;
+  color: var(--foreground);
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -.7px;
+  text-decoration: none;
+}
+
+.logo span {
+  color: var(--orange);
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 175px;
+}
+
+.nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  min-height: 58px;
+  padding: 0 30px;
+  color: var(--muted);
+  font-size: 20px;
+  text-decoration: none;
+  transition: color .2s ease, background .2s ease;
+}
+
+.nav-link svg {
+  width: 26px;
+  height: 26px;
+  flex: 0 0 26px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.nav-link:first-child svg rect {
+  fill: currentColor;
+  stroke: none;
+}
+
+.nav-link:hover {
+  color: var(--foreground);
+}
+
+.nav-link.active {
+  color: var(--orange);
+  background: linear-gradient(90deg, rgba(255, 105, 56, .12), rgba(255, 105, 56, 0));
+}
+
+.nav-link.active::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 7px;
+  border-radius: 0 7px 7px 0;
+  background: var(--orange);
+}
+
+/* ОСНОВНАЯ ОБЛАСТЬ */
+
+.main-content {
+  position: relative;
+  min-height: 100vh;
+  margin-left: 340px;
+  padding: 80px 48px 70px 55px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.create-panel {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 1050px);
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  z-index: 0;
+  margin-bottom: 29px;
+  color: var(--orange);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: .3px;
+}
+
+.heading-line {
+  height: 2px;
+  flex: 1;
+  z-index: 0;
+  background: #39332e;
+}
+
+h1 {
+  margin: -10px;
+  color: var(--foreground);
+  font-size: clamp(58px, 5.2vw, 86px);
+  line-height: .99;
+  letter-spacing: -3.2px;
+  font-weight: 600;
+}
+
+h1 span {
+  color: var(--orange);
+}
+
+.description {
+  margin: 5px 0 45px;
+  color: var(--muted);
+  font-size: clamp(19px, 1.65vw, 27px);
+  line-height: 1.45;
+  font-weight: 600;
+}
+
+/* ЗОНА ЗАГРУЗКИ — это отдельный интерфейсный элемент.
+   Декоративные изображения справа не получают рамок или скруглений. */
+
+.upload-zone {
+  position: relative;
+  display: flex;
+  width: 70%;
+  min-height: 253px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  border: 2px dashed var(--orange);
+  border-radius: 44px;
+  background: #24211e;
+  cursor: pointer;
+  text-align: center;
+  transition: background .2s ease, border-color .2s ease;
+}
+
+.upload-zone:hover,
+.upload-zone.is-dragging {
+  background: #2b2622;
+  border-color: #ff8a62;
+}
+
+.upload-zone input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.upload-icon {
+  width: 88px;
+  height: 88px;
+  margin-bottom: 14px;
+  color: var(--foreground);
+}
+
+.upload-title {
+  color: var(--foreground);
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.upload-subtitle {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 21px;
+  font-weight: 500;
+}
+
+.upload-subtitle strong {
+  color: var(--orange);
+  font-weight: 600;
+}
+
+.upload-hint {
+  margin-top: 12px;
+  color: #817a74;
+  font-size: 13px;
+}
+
+.analyze-button {
+  width: 70%;
+  min-height: 81px;
+  margin-top: 40px;
+  border: 0;
+  border-radius: 50px;
+  background: var(--orange);
+  color: #11100f;
+  font-family: var(--font);
+  font-size: 34px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.analyze-button:hover {
+  background: #ff8057;
+  transform: translateY(-2px);
+}
+
+.analyze-button:active {
+  transform: translateY(0);
+}
+
+.feedback {
+  min-height: 22px;
+  margin: 15px 0 0;
+  color: var(--orange);
+  font-size: 14px;
+}
+
+/* ДЕКОРАТИВНЫЕ ИЗОБРАЖЕНИЯ.
+   Исходные PNG уже имеют нужную форму. Не задавать border, border-radius,
+   overflow:hidden, object-fit:cover или дополнительную маску. */
+
+.reference-art {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  right: 0;
+  width: 34%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.reference-art img {
+  position: absolute;
+  display: block;
+  height: auto;
+  max-width: none;
+  object-fit: contain;
+}
+
+.reference-abstract {
+  width: clamp(190px, 18vw, 306px);
+  top: 10%;
+  left: 8%;
+  transform: rotate(-10deg);
+}
+
+.reference-stairs {
+  width: clamp(175px, 16.2vw, 276px);
+  top: 40%;
+  left: 30%;
+  transform: rotate(11deg);
+}
+
+/* ОРБИТЫ И ДЕКОРАТИВНЫЕ ЗВЁЗДЫ */
+
+.decorative-orbit {
+  position: absolute;
+  z-index: 0;
+  border: 2px solid var(--orange);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: .9;
+}
+
+.orbit-top {
+  width: 420px;
+  height: 120px;
+  top: 12%;
+  right: 3%;
+  transform: rotate(-17deg);
+}
+
+.orbit-bottom {
+  width: 580px;
+  height: 160px;
+  top: 46%;
+  right: -7%;
+  transform: rotate(-31deg);
+  opacity: .48;
+}
+
+.decorative-cross {
+  position: absolute;
+  z-index: 1;
+  transform: rotate(15deg);
+}
+
+
+.cross-top {
+  top: 0%;
+  left: 7%;
+  transform: rotate(8deg) scale(.7);
+}
+
+.cross-middle {
+  top: 44%;
+  right: 20%;
+  transform: rotate(90deg) scale(1.2);
+}
+
+.decorative-star {
+  position: absolute;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+
+
+}
+
+.star-top {
+  top: 1%;
+  right: 8%;
+  transform: rotate(6deg) scale(1.2);
+}
+
+/* АДАПТИВ */
+
+@media (max-width: 1450px) {
+  .sidebar {
+    width: 285px;
+  }
+
+  .logo {
+    margin-left: 42px;
+    font-size: 27px;
+  }
+
+  .main-content {
+    margin-left: 285px;
+    padding-left: 42px;
+    padding-right: 38px;
+  }
+
+  .create-panel {
+    width: min(100%, 920px);
+  }
+
+  .reference-art {
+    width: 32%;
+    opacity: .9;
+  }
+
+  .description {
+    max-width: 760px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .sidebar {
+    width: 235px;
+  }
+
+  .logo {
+    margin-left: 28px;
+    font-size: 23px;
+  }
+
+  .nav-link {
+    gap: 14px;
+    padding: 0 20px;
+    font-size: 16px;
+  }
+
+  .main-content {
+    margin-left: 235px;
+    padding: 75px 30px 55px;
+  }
+
+  .create-panel {
+    width: 100%;
+  }
+
+  .reference-art {
+    opacity: .35;
+    width: 45%;
+  }
+
+  h1 {
+    font-size: clamp(52px, 6.5vw, 72px);
+  }
+
+  .description {
+    font-size: 19px;
+  }
+
+  .upload-zone {
+    min-height: 260px;
+  }
+
+  .analyze-button {
+    min-height: 68px;
+    margin-top: 45px;
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 700px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+  }
+
+  .logo {
+    margin: 0;
+    font-size: 23px;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    gap: 8px;
+    margin: 0;
+  }
+
+  .nav-link {
+    width: 42px;
+    min-height: 42px;
+    justify-content: center;
+    padding: 0;
+    border-radius: 10px;
+  }
+
+  .nav-link span {
+    display: none;
+  }
+
+  .nav-link svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .nav-link.active::before {
+    inset: auto 7px 0;
+    width: auto;
+    height: 3px;
+    border-radius: 3px 3px 0 0;
+  }
+
+  .main-content {
+    min-height: calc(100vh - 72px);
+    margin-left: 0;
+    padding: 52px 22px 45px;
+  }
+
+  .reference-art {
+    top: 0;
+    right: -70px;
+    width: 70%;
+    height: 420px;
+    opacity: .23;
+  }
+
+  .reference-abstract {
+    width: 175px;
+    top: 10%;
+    left: 8%;
+  }
+
+  .reference-stairs {
+    width: 155px;
+    top: 30%;
+    right: 0;
+  }
+
+  .section-heading {
+    gap: 14px;
+    margin-bottom: 26px;
+    font-size: 14px;
+  }
+
+  h1 {
+    position: relative;
+    font-size: clamp(39px, 9vw, 58px);
+    letter-spacing: -1.9px;
+    line-height: 1.03;
+  }
+
+  .description {
+    position: relative;
+    margin: 22px 0 30px;
+    font-size: 15px;
+  }
+
+  .desktop-break {
+    display: none;
+  }
+
+  .upload-zone {
+    min-height: 230px;
+    padding: 24px 15px;
+    border-radius: 28px;
+  }
+
+  .upload-icon {
+    width: 68px;
+    height: 68px;
+  }
+
+  .upload-title {
+    font-size: 19px;
+  }
+
+  .upload-subtitle {
+    font-size: 15px;
+  }
+
+  .upload-hint {
+    font-size: 11px;
+  }
+
+  .analyze-button {
+    min-height: 58px;
+    margin-top: 28px;
+    font-size: 21px;
+  }
+
+  .orbit-top {
+    right: -38%;
+  }
+
+  .orbit-bottom {
+    right: -65%;
+  }
+}
+
+@media (max-width: 390px) {
+  .sidebar {
+    padding: 0 14px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .sidebar-nav {
+    gap: 3px;
+  }
+
+  .nav-link {
+    width: 37px;
+    height: 40px;
+  }
+
+  .main-content {
+    padding-right: 17px;
+    padding-left: 17px;
+  }
+
+  h1 {
+    font-size: 37px;
+  }
+}

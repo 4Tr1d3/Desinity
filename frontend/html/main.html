@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10100f">
+  <title>DESIGNITY — Преврати вдохновение в цельную идею</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="../js/script.js" defer></script>
+</head>
+<body>
+  <header class="header">
+    <a class="logo" href="#home">DESIGNITY<span>.</span></a>
+
+    <button class="menu-button" type="button" aria-label="Открыть меню" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+
+    <nav class="navigation">
+      <a href="#features">Возможности</a>
+      <a href="#how-it-works">Как это работает</a>
+      <a href="#about">О проекте</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="eyebrow">ИИ ДЛЯ РАБОТЫ С ДИЗАЙНОМ</div>
+
+        <h1>
+          Преврати<br>
+          вдохновение в<br>
+          <span>цельную идею</span>
+        </h1>
+
+        <p class="hero-description">
+          Анализируй референсы, находи общие черты и<br class="desktop-break">
+          объединяй идеи в единую концепцию дизайна
+        </p>
+
+        <div class="hero-buttons">
+          <a class="button button-primary" href="#start">Создать проект</a>
+          <a class="button button-secondary" href="#how-it-works">Как это работает?</a>
+        </div>
+
+        <div class="hero-caption">НЕ КОПИРУЙ ВДОХНОВЕНИЕ. <span>СОЗДАЙ СВОЁ</span></div>
+      </div>
+
+      <div class="hero-visual" aria-label="Визуальные референсы">
+        <div class="orbit orbit-main"></div>
+        <div class="orbit orbit-small"></div>
+        <div class="visual-guide visual-guide-vertical"></div>
+        <div class="visual-guide visual-guide-horizontal"></div>
+
+        <!-- Впиши пути к изображениям в src -->
+        <div class="image-card image-card-architecture">
+          <img src="../assets/Бруталистская архитектура в янтарном свете.png" alt="" class="arch">
+        </div>
+
+        <div class="image-card image-card-abstract">
+          <img src="../assets/КРУГpng 1.png" alt="" class="circle">
+        </div>
+
+        <div class="image-card image-card-statue">
+          <img src="../assets/STATUE 1.png" alt="" class="statue">
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="features">
+      <div class="section-label">01 / ВОЗМОЖНОСТИ</div>
+      <div class="section-body">
+        <h2>Из разрозненных<br><span>референсов — в систему.</span></h2>
+        <div class="features">
+          <article class="feature">
+            <span class="feature-index">01</span>
+            <h3>Собирай</h3>
+            <p>Объединяй визуальные материалы и идеи в одном проекте.</p>
+          </article>
+          <article class="feature">
+            <span class="feature-index">02</span>
+            <h3>Анализируй</h3>
+            <p>Находи общие визуальные черты, настроение и характер референсов.</p>
+          </article>
+          <article class="feature">
+            <span class="feature-index">03</span>
+            <h3>Создавай</h3>
+            <p>Формируй цельное направление и основу будущей дизайн-концепции.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section how-section" id="how-it-works">
+      <div class="section-label">02 / КАК ЭТО РАБОТАЕТ</div>
+      <div class="section-body">
+        <h2>Твоя идея.<br><span>Три понятных шага.</span></h2>
+        <div class="steps">
+          <article class="step"><span>01</span><div><h3>Добавь референсы</h3><p>Собери изображения, которые задают нужное направление.</p></div><b>↗</b></article>
+          <article class="step"><span>02</span><div><h3>Найди взаимосвязи</h3><p>Рассмотри общие элементы и визуальные закономерности.</p></div><b>↗</b></article>
+          <article class="step"><span>03</span><div><h3>Сформируй концепцию</h3><p>Объедини найденные идеи в последовательное направление дизайна.</p></div><b>↗</b></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="start-section" id="start">
+      <div>
+        <div class="section-label">03 / ТВОЙ СЛЕДУЮЩИЙ ШАГ</div>
+        <h2>Вдохновение уже есть.<br><span>Пора собрать его воедино.</span></h2>
+      </div>
+      <a class="button button-primary" href="create-project.html">Создать проект <span>↗</span></a>
+    </section>
+
+    <section class="content-section about-section" id="about">
+      <div class="section-label">04 / О ПРОЕКТЕ</div>
+      <div class="section-body about-copy">
+        <h2>DESIGNITY<span class="orange-dot">.</span></h2>
+        <p>Инструмент для осмысленной работы с визуальным вдохновением. Анализируй, комбинируй, создавай.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="logo" href="#home">DESIGNITY<span>.</span></a>
+    <span>ANALYZE. COMBINE. CREATE.</span>
+    <a href="#home">Наверх ↑</a>
+  </footer>
+</body>
+</html>
