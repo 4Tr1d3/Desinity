@@ -1,102 +1,84 @@
-
-import os
+"""Точка входа Designity: Flask одновременно отдаёт сайт и API."""
 import logging
+import os
+from pathlib import Path
 
-from flask import Flask, jsonify
 from dotenv import load_dotenv
+from flask import Flask, jsonify, send_from_directory
 
-
-# Загружаем переменные окружения из .env
 load_dotenv()
 
-
-# Настраиваем логирование
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
 )
 
+from backend.api import ai_bp  # noqa: E402
 
-# Импортируем API после загрузки .env
-from backend.api import ai_bp
+BASE_DIR = Path(__file__).resolve().parent
+FRONTEND_DIR = BASE_DIR / "frontend"
 
-
-# Создаём Flask-приложение
 app = Flask(__name__)
-
-# Максимальный размер входящего запроса — 100 МБ
-app.config["MAX_CONTENT_LENGTH"] = 100 * 1024 * 1024
-
-# Подключаем API
+app.config["MAX_CONTENT_LENGTH"] = 105 * 1024 * 1024
 app.register_blueprint(ai_bp)
 
 
-# Главная страница
 @app.get("/")
 def index():
-    return """
-    <!DOCTYPE html>
-    <html lang="ru">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Designity API</title>
-    </head>
-    <body>
-        <h1>Designity</h1>
-        <p>Сервис анализа визуальных референсов.</p>
-        <p>API работает.</p>
-        <p>Для проверки состояния сервера перейдите по адресу:</p>
-        <a href="/api/health">API Health Check</a>
-    </body>
-    </html>
-    """
+    """Главная страница сайта."""
+    return send_from_directory(FRONTEND_DIR / "html", "main.html")
 
 
-# Проверка состояния сервера
+@app.get("/create-project.html")
+@app.get("/create-project")
+def create_project():
+    """Страница загрузки и анализа референсов."""
+    return send_from_directory(FRONTEND_DIR / "html", "create-project.html")
+
+
+@app.get("/css/<path:filename>")
+def frontend_css(filename):
+    return send_from_directory(FRONTEND_DIR / "css", filename)
+
+
+@app.get("/js/<path:filename>")
+def frontend_js(filename):
+    return send_from_directory(FRONTEND_DIR / "js", filename)
+
+
+@app.get("/assets/<path:filename>")
+def frontend_assets(filename):
+    return send_from_directory(FRONTEND_DIR / "assets", filename)
+
+
 @app.get("/api/health")
 def health():
     return jsonify({
         "success": True,
         "service": "Designity",
-        "status": "running"
+        "status": "running",
     }), 200
 
 
-# Обработка слишком больших запросов
 @app.errorhandler(413)
-def request_entity_too_large(error):
+def request_entity_too_large(_error):
     return jsonify({
         "success": False,
-        "error": "Размер запроса превышает допустимые 100 МБ."
+        "error": "Размер запроса превышает допустимые 105 МБ.",
     }), 413
 
 
-# Обработка внутренних ошибок Flask
 @app.errorhandler(500)
 def internal_server_error(error):
-    app.logger.exception("Внутренняя ошибка Flask")
-
+    app.logger.exception("Внутренняя ошибка Flask: %s", error)
     return jsonify({
         "success": False,
-        "error": "Внутренняя ошибка сервера."
+        "error": "Внутренняя ошибка сервера.",
     }), 500
 
 
-# Запуск приложения
 if __name__ == "__main__":
     port = int(os.getenv("PORT", "5000"))
-
-    debug_mode = (
-        os.getenv("FLASK_DEBUG", "false").lower() == "true"
-    )
-
-    app.logger.info("Запуск Designity API...")
-    app.logger.info("Порт: %s", port)
-    app.logger.info("Режим отладки: %s", debug_mode)
-
-    app.run(
-        host="127.0.0.1",
-        port=port,
-        debug=debug_mode
-    )
+    debug_mode = os.getenv("FLASK_DEBUG", "false").lower() == "true"
+    app.logger.info("Запуск Designity на порту %s", port)
+    app.run(host="0.0.0.0", port=port, debug=debug_mode)

@@ -122,8 +122,12 @@
         проанализирует стили и создаст дизайн
       </p>
 
+      <label class="description-label" for="project-description">ОПИСАНИЕ ПРОЕКТА (НЕОБЯЗАТЕЛЬНО)</label>
+      <textarea id="project-description" class="project-description" rows="2"
+        placeholder="Например: айдентика кофейни в минималистичном стиле..."></textarea>
+
       <label class="upload-zone" id="upload-zone" for="reference-input">
-        <input id="reference-input" type="file" accept="image/*" multiple>
+        <input id="reference-input" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" multiple>
         <svg width="103" height="103" viewBox="0 0 103 103" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M68.6665 21.4584H94.4165" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke="#FF7139"/>
           <path d="M81.5415 8.58337V34.3334" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke="#FF7139"/>
@@ -140,6 +144,8 @@
       </button>
 
       <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
+      <div class="selected-files" id="selected-files" aria-live="polite"></div>
+      <section class="results" id="results" hidden aria-live="polite"></section>
     </section>
 
     

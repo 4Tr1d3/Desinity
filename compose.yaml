@@ -1,0 +1,15 @@
+services:
+  designity:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: designity
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    environment:
+      PORT: 5000
+      FLASK_DEBUG: "false"
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.8-flash}
+    restart: unless-stopped
